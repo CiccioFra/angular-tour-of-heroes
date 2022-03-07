@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-tour-of-heroes';
+  title = 'il tour degli Heroes 2'; 
+  //si può tipizzare:   title: string = 'angular-tour-of-heroes'; 
+
 }
