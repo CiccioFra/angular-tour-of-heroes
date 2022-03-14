@@ -22,3 +22,16 @@ commentato per fare List  -->
         <span class="name">{{hero.name}}</span>
     </li>
 </ul>
+
+<!-- nuova direttiva *ngIf -->
+
+<div *ngIf="selectedHero">  <!-- null e undefined trattati come false -->
+
+  <h2>{{selectedHero.name | uppercase}} Details</h2>
+  <div>id: {{selectedHero.id}}</div>
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
+  </div>
+
+</div>
