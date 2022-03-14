@@ -15,8 +15,8 @@
     <!-- da inizialmente errore perche ngModel non è nativo, fa parte di un altro modulo "FormsModule" -->
     <!-- un modulo è un contenitore di componenti, direttive, servizi, ecc.. -->
     <!-- il nostro modulo app.module.ts ha bisogno di un altro modulo, andare in  -->
-    <input id="name" [(ngModel)]="hero.name" placeholder="name">  <!-- two-way building - viene modificato nel resto del codice -->
-    <!-- ngModel è una direttiva presente nel modulo FormsModul -->
+    <input id="name" [(ngModel)]="hero.name" placeholder="Nome dell'eroe">  <!-- two-way building - viene modificato nel resto del codice -->
+    <!-- ngModel è una direttiva presente nel modulo FormsModul da importare nel file app/app.module.ts -->
 </div>
 
 <div *ngFor="let valore of values">
