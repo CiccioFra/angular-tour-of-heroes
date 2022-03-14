@@ -23,7 +23,8 @@
         border-radius: 4px;
         display: flex;
         align-items: stretch;
-        height: 1.8em;
+        // height: 1.8em;
+        border: none;
 
         &:hover {
             color: #2c3a41;
@@ -56,7 +57,8 @@
         display: inline-block;
         font-size: small;
         color: white;
-        padding: 0.8em 0.7em 0 0.7em;
+        // padding: 0.8em 0.7em 0 0.7em;
+        padding: 0.8em;
         background-color: #405061;
         line-height: 1em;
         margin-right: 0.8em;
