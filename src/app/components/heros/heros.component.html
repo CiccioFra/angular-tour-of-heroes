@@ -24,16 +24,4 @@ commentato per fare List  -->
     </li>
 </ul>
 
-<!-- nuova direttiva *ngIf -->
-
-<div *ngIf="selectedHero">  <!-- null e undefined trattati come false -->
-  <!-- oppure inserire una variavile definita in .ts  
-        Es. pippo = this.selectedHero != null && this.selectedHero == 'Narco';-->
-  <h2>{{selectedHero.name | uppercase}} Details</h2>
-  <div>id: {{selectedHero.id}}</div>
-  <div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
-  </div>
-
-</div>
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>

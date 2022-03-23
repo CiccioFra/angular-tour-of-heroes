@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HEROESMOCKDATA } from 'src/app/mock-data/mock-heros';
 import { Hero } from 'src/app/models/hero';
+import { HeroService } from 'src/app/services/hero.service';
 
 @Component({
   selector: 'app-heros',      // quando trovi il tag <app-heros>
@@ -33,21 +34,31 @@ export class HerosComponent implements OnInit {
   // per pulire il codice, questi dati mockati possiamo metterli in un file esterno, dentro add creo data..
 
 //variabile che passo alla view
-heroes: Hero[] = HEROESMOCKDATA;
+// heroes: Hero[] = HEROESMOCKDATA;  // Hero[] semplicemente indica il tipo (è una tipizzazione)
+heroes: Hero[] = [];  // Hero[] semplicemente indica il tipo (è una tipizzazione)
 selectedHero?: Hero;
 //END: variabili che passo alla view
 
   // values: number[] = [2, 6, 8, 1979];
 
-  constructor() { }
+  constructor(private heroService: HeroService) { } // heroService variabile di classe // private non disponibile all'HTML
 
   ngOnInit(): void {
+    // se non ci fosse darebbe errore in quanto la classe implementa
+    // cosa è: un LifeCycle Hook - il componente ha un suo ciclo di vita: nasce (ngOnInit) -> cresce (..) -> muore (ngOnDestroy) -> nasce...
+    this.getHeroes();
   }
 
   // inseriamo la funzione dell'html
-  onSelect(pippo: Hero){
-    this.selectedHero = pippo;  // senza il this si riferirebe ad una variabile della funzione stessa
+  onSelect(hero: Hero){
+    this.selectedHero = hero;  // senza il this si riferirebe ad una variabile della funzione stessa
     // il this. mi porta a cercare la variabile all'esterno della funzione ma nella classe (nella view)
   }
 
+  getHeroes(): void { // la funzione viene chiamata all'inizializzazione del componente
+    // this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes().subscribe(data => {this.heroes = data;  // ora è codice asincrono
+    console.log(this.heroes)
+    });
+  }
 }
