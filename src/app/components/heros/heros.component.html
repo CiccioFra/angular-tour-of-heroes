@@ -1,0 +1,39 @@
+<!-- <h2>{{hero.name | uppercase}} Details</h2>
+<div><span>id: </span>{{hero.id}}</div>
+<div>
+  <label for="name">Hero name: </label>
+  <input id="name" [(ngModel)]="hero.name" placeholder="name">
+</div> 
+commentato per fare List  -->
+
+<!-- <h2>My Heroes</h2>
+<ul class="heroes">
+    <li *ngFor="let hero of heroes">
+        <span class="badge">{{hero.id}}</span>
+        <span class="name">{{hero.name}}</span>
+    </li>
+</ul>     mettiamo button e diventa:  -->
+
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+      <button [class.selected]="hero === selectedHero" type="button" (click)="onSelect(hero)">
+        <span class="badge">{{hero.id}}</span>
+        <span class="name">{{hero.name}}</span>
+      </button>
+    </li>
+</ul>
+
+<!-- nuova direttiva *ngIf -->
+
+<div *ngIf="selectedHero">  <!-- null e undefined trattati come false -->
+  <!-- oppure inserire una variavile definita in .ts  
+        Es. pippo = this.selectedHero != null && this.selectedHero == 'Narco';-->
+  <h2>{{selectedHero.name | uppercase}} Details</h2>
+  <div>id: {{selectedHero.id}}</div>
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
+  </div>
+
+</div>
