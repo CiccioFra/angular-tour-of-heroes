@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HEROESMOCKDATA } from 'src/app/mock-data/mock-heros';
 import { Hero } from 'src/app/models/hero';
 import { HeroService } from 'src/app/services/hero.service';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-heros',      // quando trovi il tag <app-heros>
@@ -41,18 +42,23 @@ selectedHero?: Hero;
 
   // values: number[] = [2, 6, 8, 1979];
 
-  constructor(private heroService: HeroService) { } // heroService variabile di classe // private non disponibile all'HTML
+  constructor(
+    private heroService: HeroService,
+    private messageService: MessageService
+    ) { } // heroService variabile di classe // con private non disponibile all'HTML
 
   ngOnInit(): void {
     // se non ci fosse darebbe errore in quanto la classe implementa
-    // cosa è: un LifeCycle Hook - il componente ha un suo ciclo di vita: nasce (ngOnInit) -> cresce (..) -> muore (ngOnDestroy) -> nasce...
+    // cosa è: un LifeCycle Hook - il componente ha un suo ciclo di vita: 
+    //  nasce (ngOnInit) -> cresce (..) -> muore (ngOnDestroy) -> nasce...
     this.getHeroes();
   }
 
   // inseriamo la funzione dell'html
   onSelect(hero: Hero){
-    this.selectedHero = hero;  // senza il this si riferirebe ad una variabile della funzione stessa
-    // il this. mi porta a cercare la variabile all'esterno della funzione ma nella classe (nella view)
+    this.selectedHero = hero;
+    this.messageService.add('HeroesComponent: Selected hero id = ' + hero.id);
+    this.messageService.add(` and name: ' ${hero.name} '`);  //Stampare una variabile dentro una stringa
   }
 
   getHeroes(): void { // la funzione viene chiamata all'inizializzazione del componente
