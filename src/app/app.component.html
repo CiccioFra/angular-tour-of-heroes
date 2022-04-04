@@ -1,4 +1,9 @@
 <h1>{{title}}</h1>
+<nav>
+    <a routerLink="/dashboard">Dashboard</a>
+    <!-- come aggiungere un link di navigazione https://angular.io/tutorial/toh-pt5#add-a-navigation-link-routerlink -->
+    <a routerLink="/heroes">Heros</a>  <!--  routerLink sostituisce href -->
+</nav>
 <!-- <app-heros></app-heros> -->
 <router-outlet></router-outlet> <!-- è il componente che mette dentro in base al path -->
 <app-message></app-message>

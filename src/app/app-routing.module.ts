@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { HerosComponent } from './components/heros/heros.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 //importato da guida
 const routes: Routes = [
-  { path: 'heroes', component: HeroesComponent }
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },  // pathMatch: 'full' => controlla tutto l'url (verifica che sia tutto vuoto)
+  { path: 'heroes', component: HerosComponent },
+  { path: 'dashboard', component: DashboardComponent },
 ];
 
 /*

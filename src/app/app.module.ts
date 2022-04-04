@@ -7,6 +7,7 @@ import { HerosComponent } from './components/heros/heros.component';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import { MessageComponent } from './components/message/message.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 // con "from senza pattern relativo" la cerca dentro la directory "node_modules"
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     HerosComponent,
     HeroDetailComponent,
-    MessageComponent
+    MessageComponent,
+    DashboardComponent
   ],
   imports: [    // qui si mettono tutti i moduli di cui il mio modulo ha bosogno
                 // sopra (import) è il percorso..

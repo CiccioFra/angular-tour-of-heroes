@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { MessageService } from 'src/app/services/message.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, OnDestroy {
 
   constructor(public messageService: MessageService) { }  //injection 
   // per poter usare un servizio si ignetta nel costruttore
@@ -15,4 +15,7 @@ export class MessageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {         //distruzione
+    console.log('DashboardComponent noOnInit()');
+  }
 }

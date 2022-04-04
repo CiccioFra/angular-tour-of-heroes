@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HEROESMOCKDATA } from 'src/app/mock-data/mock-heros';
 import { Hero } from 'src/app/models/hero';
 import { HeroService } from 'src/app/services/hero.service';
@@ -10,7 +10,7 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./heros.component.scss']
 })
 
-export class HerosComponent implements OnInit {
+export class HerosComponent implements OnInit, OnDestroy {
   // 1- hero: string = 'Windstorm';   // inserisco variabile che sarà richiamata in html
   // 2- non la vogliamo più di tipo stringa.. la vogliamo di tipo Hero -> 
   //    -> esce errore -> Posizionarsi col mouse sopra -> fare import
@@ -66,5 +66,9 @@ selectedHero?: Hero;
     this.heroService.getHeroes().subscribe(data => {this.heroes = data;  // ora è codice asincrono
     console.log(this.heroes)
     });
+  }
+
+  ngOnDestroy(): void {         //distruzione
+    console.log('DashboardComponent noOnInit()');
   }
 }
