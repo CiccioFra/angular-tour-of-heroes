@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HerosComponent } from './components/heros/heros.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 
 //importato da guida
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },  // pathMatch: 'full' => controlla tutto l'url (verifica che sia tutto vuoto)
   { path: 'heroes', component: HerosComponent },
+  { path: 'detail/:id', component: HeroDetailComponent }, //lez7 parte 2
   { path: 'dashboard', component: DashboardComponent },
 ];
 

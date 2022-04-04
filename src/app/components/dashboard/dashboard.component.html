@@ -1,6 +1,7 @@
 <h2>Top Heroes</h2>
 <div class="heroes-menu">
-  <a *ngFor="let hero of heroes">   <!-- erore su heroes => -->
+  <!-- <a *ngFor="let hero of heroes">   <!-- errore su heroes => -->
+  <a *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">    <!-- erore su heroes => -->
     {{hero.name}}
   </a>
 </div>
