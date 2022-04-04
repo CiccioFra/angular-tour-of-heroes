@@ -38,4 +38,8 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     //@ per quando è passato da fuori
     console.log('id = ', id)
   }
+
+  goBack(): void {
+    this.location.back();
+  }
 }
