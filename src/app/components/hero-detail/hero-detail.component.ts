@@ -33,6 +33,9 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     //  questa riga di codice serve per prendere dall'url (tutto quello dopo dashboard\) il parametro "id"
     // si mette dentro Number, perchè di default prende tutto come String
     //  in sostituz du Number si può usare il + (fa il cast) ma non accetta il "null"
+    this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+    // prende id da url e restituisce hero corrispondente a id
+    //@ per quando è passato da fuori
     console.log('id = ', id)
   }
 }

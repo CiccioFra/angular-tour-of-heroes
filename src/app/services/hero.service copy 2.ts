@@ -12,17 +12,16 @@ export class HeroService {
   constructor(private messageService: MessageService) {}  // questa è una injection
   
   getHeroes(): Observable<Hero[]> {
-
+        // con . subscribe si esplicita il tipo del respons tra < >
+    //  return of(HEROESMOCKDATA).pipe(delay(5000));  // of per simulare la riscposta di un server
+          // of() è un operatore, restituisce un Observable del "parametro"
+          // CONNESSIONE VERA: return this.http.get('url-coi-dati');
+  // spacchiamo in 2   return of(HEROESMOCKDATA).pipe(delay(5000));
   const HEROES: Observable<Hero[]> = of(HEROESMOCKDATA).pipe(delay(2000));
   this.messageService.add('HeroService: fetched heros');
   return HEROES
   }
   
-  getHero(selectId: number): Observable<Hero> {
-    const hero = HEROESMOCKDATA.find(h => h.id === selectId)!;  // ! relativa solo  a tipescript, n compilazione js viene torlto
-    //  dice al sistema che gatantisce che non sarà null/undefined
-    this.messageService.add(`HeroService: fetched hero id=${selectId}`);  // apici convessi per riconoscere faviabile nel testo (verbatim)
-    return of(hero);
-  }
- 
+ //osservable: come se fosse un podcast. al quale ci si abbona e si ricevono dati nuovi ogni volta che ci sono
+ //   HEROS.subscibe(x => ..)  
 }
