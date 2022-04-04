@@ -37,7 +37,7 @@ export class HerosComponent implements OnInit, OnDestroy {
 //variabile che passo alla view
 // heroes: Hero[] = HEROESMOCKDATA;  // Hero[] semplicemente indica il tipo (è una tipizzazione)
 heroes: Hero[] = [];  // Hero[] semplicemente indica il tipo (è una tipizzazione)
-selectedHero?: Hero;
+//      selectedHero?: Hero;        CODICE MORTO A SEGUITO DI MODIFICA IN HEROS.COMPONENTE.HTML
 //END: variabili che passo alla view
 
   // values: number[] = [2, 6, 8, 1979];
@@ -54,12 +54,13 @@ selectedHero?: Hero;
     this.getHeroes();
   }
 
-  // inseriamo la funzione dell'html
-  onSelect(hero: Hero){
-    this.selectedHero = hero;
-    this.messageService.add('HeroesComponent: Selected hero id = ' + hero.id);
-    this.messageService.add(` and name: ' ${hero.name} '`);  //Stampare una variabile dentro una stringa
-  }
+  //  CODICE MORTO A SEGUITO DI MODIFICA IN HEROS.COMPONENTE.HTML
+  // // inseriamo la funzione dell'html
+  // onSelect(hero: Hero){
+  //   this.selectedHero = hero;
+  //   this.messageService.add('HeroesComponent: Selected hero id = ' + hero.id);
+  //   this.messageService.add(` and name: ' ${hero.name} '`);  //Stampare una variabile dentro una stringa
+  // }
 
   getHeroes(): void { // la funzione viene chiamata all'inizializzazione del componente
     // this.heroes = this.heroService.getHeroes();

@@ -37,20 +37,21 @@
             color: #fafafa;
         }
 
-        &.selected {
-            background-color: black;
-            color: $white;
+        //  CODICE MORTO
+        // &.selected {
+        //     background-color: black;
+        //     color: $white;
 
-            &:hover {
-                background-color: #505050;
-                color: $white;
-            }
+        //     &:hover {
+        //         background-color: #505050;
+        //         color: $white;
+        //     }
 
-            &:active {
-                background-color: black;
-                color: white;
-            }
-        }
+        //     &:active {
+        //         background-color: black;
+        //         color: white;
+        //     }
+        // }
     }
 
     .badge {
