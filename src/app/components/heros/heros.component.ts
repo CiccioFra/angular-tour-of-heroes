@@ -56,7 +56,7 @@ heroes: Hero[] = [];  // Hero[] semplicemente indica il tipo (è una tipizzazion
 
   //  CODICE MORTO A SEGUITO DI MODIFICA IN HEROS.COMPONENTE.HTML
   // // inseriamo la funzione dell'html
-  // onSelect(hero: Hero){
+  // onSelect(hero: Hero): void {
   //   this.selectedHero = hero;
   //   this.messageService.add('HeroesComponent: Selected hero id = ' + hero.id);
   //   this.messageService.add(` and name: ' ${hero.name} '`);  //Stampare una variabile dentro una stringa
