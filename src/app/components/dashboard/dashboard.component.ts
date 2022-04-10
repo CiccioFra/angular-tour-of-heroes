@@ -14,16 +14,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //tips
-    console.log('DashboardComponent noOnInit()');   //craezione di un "servizio"
+    console.log('DashboardComponent ngOnInit()');   //craezione di un "servizio"
     this.getHeroes();
   }
 
-  getHeroes(): void {       // cosa fa chiama il service che abbiamo importato /hero.service) che chiama
+  getHeroes(): void {    // chiama il service che abbiamo importato /hero.service) che chiama
     this.heroService.getHeroes().subscribe(dataResponse => { this.heroes = dataResponse.slice(1, 5) }) //graffe con 1 operazione (come qua) sono opzionali
   }
 
   ngOnDestroy(): void {         //distruzione del "servizio" e liberazione risorse
-    console.log('DashboardComponent noOnInit()');
+    console.log('DashboardComponent ngOnInit()');
   }
 
 }
