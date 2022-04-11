@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'; //dal package di nood
-import { delay, Observable, of } from 'rxjs';
+import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { HEROESMOCKDATA } from '../mock-data/mock-heros';
 import { Hero } from '../models/hero';
 import { MessageService } from './message.service';
@@ -11,36 +11,123 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HeroService {
   private heroesUrl = 'api/heroes';  // URL to web api  // createDb() di in-memory-data.service.ts
+  private httpOptions = {
+    // .. 
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })  // Content-Type Tipo di dato restituito dalla chiamata
+  };
 
   constructor(
     private messageService: MessageService,     // questa è una injection
     private http: HttpClient,       // Lez7
   ) { }
 
+  // getHeroes(): Observable<Hero[]> {
+  // // const HEROES: Observable<Hero[]> = of(HEROESMOCKDATA).pipe(delay(2000));   DIVENTA =>
+  // const HEROES= this.http.get<Hero[]>(this.heroesUrl)   // url da chiamare, valore tipo da restituire
+  //   //  HEROES è un Observable di quello che restituesce get del Tipo Hero[]       
+  //          =>
+  /** introduciamo catchError() https://angular.io/tutorial/toh-pt6#error-handling */
+  // getHeroes(): Observable<Hero[]> {
+  //   const HEROES = this.http.get<Hero[]>(this.heroesUrl)
+  //     .pipe(
+  //       catchError(error => {
+  //         console.log(error);
+  //         this.log(`getHeroes failed: ${error.message}`);
+  //         let response = [] as Hero[];  // "as"  è un casting
+  //         return of(response);  // of() ritorna un Observable di quello che metto tra parentesi
+  //         //riceve l'errore -> restituisce un value innocuo
+  //       })
+  //     );
+  //   // this.messageService.add('HeroService: fetched heros'); // lez7 COMMENTATA per pulizia di codice, diventa ->
+  //   this.log('fetchd heroes')
+  //   return HEROES
+  // }    COMMENTATO PER INTRODURRE IL TAP()
+  //          =>
   getHeroes(): Observable<Hero[]> {
-
-    // const HEROES: Observable<Hero[]> = of(HEROESMOCKDATA).pipe(delay(2000));   DIVENTA =>
-    const HEROES= this.http.get<Hero[]>(this.heroesUrl)   // url da chiamare, valore tipo da restituire
-      //  HEROES è un Observable di quello che restituesce get del Tipo Hero[]
-    
-    // this.messageService.add('HeroService: fetched heros'); // lez7 COMMENTATA per pulizia di codice, diventa ->
-    this.log('fetchd heroes')
-
-    return HEROES
+    return this.http.get<Hero[]>(this.heroesUrl)  // this.heroesUrl = 'api/heroes'
+      .pipe(
+        // tap(response => this.log('fetched heroes')), // come si scrive normalmente
+        tap(_ => this.log('fetched heroes')), // dato che la var response non è usata, si scrive un underscore
+        catchError(error => {
+          console.error(error);
+          this.log(`getHeroes failed: ${error.status}: ${error.body.error} - ${error.message}`);
+          let response = [] as Hero[];  // "as"  è un casting
+          return of(response);  // of() ritorna un Observable di quello che metto tra parentesi
+          //riceve l'errore -> restituisce un value innocuo
+          // nella guica https://angular.io/tutorial/toh-pt6#tap-into-the-observable come parametro del catchError()mette qualcosa che restituisce la funzione, noi abbiamo inserito diretamente la funzione
+        }),
+      );
   }
 
-  getHero(selectId: number): Observable<Hero> {
-    const hero = HEROESMOCKDATA.find(h => h.id === selectId)!;  // ! relativa solo  a tipescript, n compilazione js viene torlto
-    //  dice al sistema che gatantisce che non sarà null/undefined
-    //this.messageService.add(`HeroService: fetched hero id=${selectId}`);  // apici convessi per riconoscere faviabile nel testo (verbatim)
-    //commento anche questa. diventa ->
-    this.log(`fetchd hero id=${selectId}` )   // ` -> altGr + '
-    return of(hero);
-    }
 
-     // lez7 guida dice di fare pulizia di codice
-    /** Log a HeroService message with the MessageService */
-    private log(message: string) {
-      this.messageService.add(`HeroService: ${message}`);
-    }
+  // getHero(selectId: number): Observable<Hero> {
+  //   const hero = HEROESMOCKDATA.find(h => h.id === selectId)!;  // ! relativa solo  a tipescript, n compilazione js viene torlto
+  //   //  dice al sistema che gatantisce che non sarà null/undefined
+  //   //this.messageService.add(`HeroService: fetched hero id=${selectId}`);  // apici convessi per riconoscere faviabile nel testo (verbatim)
+  //   //commento anche questa. diventa ->
+  //   this.log(`fetchd hero id=${selectId}`)   // ` -> altGr + '
+  //   return of(hero);
+  // }              =>
+  /** chiamata al backEnd */
+  getHero(selectId: number): Observable<Hero> {
+    // return this.http.get<Hero>(this.heroesUrl + '/' + selectId); // prima di fare cose, ci metiamo una pipe
+    return this.http.get<Hero>(this.heroesUrl + '/' + selectId)
+      .pipe(
+        tap(_ => this.log(`fetched hero id = ${selectId}`)),
+        catchError(error => {    // catchError() è un operatore 
+          // potremmo scrivere semplicemente catchError(_ => of())
+          // ma visto che abbiamo un eror, lo usiamo
+          //codice come sopra con piccole modifiche
+          console.error(error);
+          this.log(`getHeroes id=${selectId} failed:  ${error.status}: ${error.body.error} - ${error.message}`);
+          return of();  // status proprietà di default di error
+          // così è più strutturata e gestisce l'erore, e non si spacca e basta
+        })
+      );
+  }
+
+  // lez7 guida dice di fare pulizia di codice
+  /** Log a HeroService message with the MessageService */
+  private log(message: string) {
+    this.messageService.add(`HeroService: ${message}`);
+  }
+
+  /** confonde troppo, la togliamo, è opzionale */
+  // //copiato dal sito  https://angular.io/tutorial/toh-pt6#error-handling
+  // /**
+  //  * Handle Http operation that failed.
+  //  * Let the app continue.
+  //  *
+  //  * @param operation - name of the operation that failed
+  //  * @param result - optional value to return as the observable result
+  //  * @returns value innocuo - innocuous result so that the application keeps working.
+  //  */
+  // private handleError<T>(operation = 'operation', result?: T) { // questa funzione serve solo all'Observable
+  //   return (error: any): Observable<T> => {
+
+  //     // TODO: send the error to remote logging infrastructure
+  //     console.error(error); // log to console instead
+
+  //     // TODO: better job of transforming error for user consumption
+  //     this.log(`${operation} failed: ${error.message}`);
+
+  //     // Let the app keep running by returning an empty result.
+  //     return of(result as T);
+  //     //questa funzione può essere richiamata in più punti del codice,
+  //     // la funzione è scritta in modo generale
+  //   };
+  // }
+
+  /** PUT: update the hero on the server */
+  updateHero(hero: Hero): Observable<any> {
+    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap(_ => this.log(`updated hero id=${hero.id}`)),
+      // catchError(this.handleError<any>('updateHero'))
+      catchError(error => {
+        console.error(error);
+        this.log(`getHeroes failed:  ${error.status}: ${error.body.error} - ${error.message}`);
+        return of();
+      })
+    );
+  }
 }
