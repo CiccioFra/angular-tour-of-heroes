@@ -25,6 +25,6 @@ const routes: Routes = [
 //importato da guida in sosituzione di sopra
 @NgModule({
   imports: [RouterModule.forRoot(routes)],  // importa il modulo con delle impostazioni (le rotte che il modulo dovrà usare)
-  exports: [RouterModule]   // lo esporta per rendere disponibile a tutta l'applicazione le rout
+  exports: [RouterModule]   // lo esporta per rendere disponibile a tutta l'applicazione le route
 })
 export class AppRoutingModule { }
