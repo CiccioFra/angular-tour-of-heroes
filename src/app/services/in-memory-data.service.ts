@@ -22,7 +22,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 19, name: 'Magma' },
       { id: 20, name: 'Tornado' }
     ];
-    return {heroes};
+    return {heroes};  // questa è la chiave quando chiamiamo la chiave api/heroes // è un oggetto con dentro l'array heroes associato ad una chiave heroes SAREBBE {heroes: heroes}
   }
 
   genId(heroes: Hero[]): number {

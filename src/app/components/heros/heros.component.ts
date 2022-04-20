@@ -69,6 +69,24 @@ heroes: Hero[] = [];  // Hero[] semplicemente indica il tipo (è una tipizzazion
     });
   }
 
+  add(name: string): void {  // aggiunto il 20 aprile, lez9 dopo il div - passo 2
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)  // quando creo unoggetto nuovo { name: name } nome della variavile uguale al nome del valore, si può scrivere { name } // as è un cast a Hero
+      .subscribe(hero => {  // "hero" è hero che torna indietro il backend
+        this.heroes.push(hero); // viene pushato a video
+      });
+  }
+
+  delete(hero: Hero): void {  // aggiunto il 20 aprile, lez9 dopo il div - passo 4/5
+  //   this.heroes = this.heroes.filter(h => h !== hero);  // classico metodo per cancellare un elemento da una lista
+  //   this.heroService.deleteHero(hero.id).subscribe();   // dopo chiama il db per cancellare l'emento dal DB
+  // la cambio per cambiare la view dopo aver aggiornato il DB
+    this.heroService.deleteHero(hero.id).subscribe(() => {
+      this.heroes = this.heroes.filter(h => h !== hero);
+    });
+ }
+
   ngOnDestroy(): void {         //distruzione
     console.log('DashboardComponent noOnInit()');
   }
