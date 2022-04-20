@@ -1,0 +1,15 @@
+<div id="search-component">
+    <label for="search-box">Hero Search</label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <!-- viene triggherato l'evento di input ogni volta che viene digitato un carattere -->
+
+    <ul class="search-result">
+        <li *ngFor="let hero of heroes$ | async">
+            <!-- "heroes$" è il nome di una variabile, per convenzione si mettere $ alla fine della var quando è un Observable (concenzione dei nome delle var); -- lo da in pasto alla pipe async: come il subscribe, in html aspetta il respons dell'Observable, quando pronto, restituirà il risultato -->
+            <!-- "heroes$ | async" è un array di hero -->
+            <a routerLink="/detail/{{hero.id}}">
+                {{hero.name}}
+            </a>
+        </li>
+    </ul>
+</div>

@@ -13,7 +13,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
  // aggiunto con lez7 - per fare chiamate HTTP
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'; // modulo in nodModules
-import { InMemoryDataService } from './services/in-memory-data.service'; //inizialmente il file manca, lo creiamo
+import { InMemoryDataService } from './services/in-memory-data.service';
+import { HeroSearchComponent } from './components/hero-search/hero-search.component'; //inizialmente il file manca, lo creiamo
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { InMemoryDataService } from './services/in-memory-data.service'; //inizi
     HerosComponent,
     HeroDetailComponent,
     MessageComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeroSearchComponent
   ],
   imports: [    // qui si mettono tutti i moduli di cui il mio modulo ha bosogno
                 // sopra (import) è il percorso..
